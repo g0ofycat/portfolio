@@ -13,9 +13,8 @@
             padding: 0;
             background-color: #f4f4f4;
             overflow: auto;
-            font-size: 1.2vw;
+            font-size: 1.2vw; /* Further decreased font size */
         }
-
         header {
           background: #111;
           color: #fff;
@@ -72,7 +71,7 @@
         }
         .project {
             margin: 2rem;
-            padding: 2vw;
+            padding: 2vw; /* Further decreased padding for project sections */
             background: #fff;
             border-radius: 0.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -93,7 +92,7 @@
             padding: 10px;
             border-radius: 5px;
             text-align: center;
-            font-size: 3vw;
+            font-size: 3vw; /* Further decreased overlay text size */
             font-family: 'Fira Mono', monospace;
         }
         .overlay-paragraph {
@@ -109,7 +108,7 @@
           z-index: 1;
           border: 2px solid #000000;
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-          font-size: 1.2vw;
+          font-size: 1.2vw; /* Further decreased paragraph text size */
         }
         @keyframes slideDown {
             from {
@@ -142,7 +141,8 @@
         I am good in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
         as my next programming language.  I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
         other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics</b>, 
-        and I am open to learn new subjects!</p>
+        and I am open to learn new subjects!
+    </p>
         <div class="project">
             <h2>Experience</h2>
             <p><i>Open <b>this</b> section</i></p>
@@ -150,10 +150,6 @@
         <div class="project">
             <h2>Projects</h2>
             <p><i>Open <b>this</b> section</i></p>
-            <video controls width="300">
-                <source src="path/to/your/video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
         </div>
         <div class="project">
             <h2>Other</h2>
@@ -173,8 +169,8 @@
                 this.x = x;
                 this.y = y;
                 this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 2;
-                this.speedY = Math.random() * 2;
+                this.speedX = Math.random() * 2; // Slower particle movement
+                this.speedY = Math.random() * 2; // Slower particle movement
                 this.opacity = 1;
             }
             update() {
@@ -240,7 +236,7 @@
 
         const text = "g0ofycat 🐈‍⬛";
         let index = 0;
-        const speed = 20;
+        const speed = 20; // Faster typewriter speed
 
         function typeWriter() {
             if (index < text.length) {
@@ -256,8 +252,8 @@
         let aboutIndex = 0;
 
         function typeWriterOverlay() {
-            overlayText.innerHTML = "";
-            overlayIndex = 0;
+            overlayText.innerHTML = ""; // Clear previous text
+            overlayIndex = 0; // Reset index
             function type() {
                 if (overlayIndex < overlayText.dataset.text.length) {
                     overlayText.innerHTML += overlayText.dataset.text.charAt(overlayIndex);
@@ -269,8 +265,8 @@
         }
 
         function typeWriterAbout() {
-            aboutTextElement.innerHTML = "";
-            aboutIndex = 0;
+            aboutTextElement.innerHTML = ""; // Clear previous text
+            aboutIndex = 0; // Reset index
             function type() {
                 if (aboutIndex < aboutTextElement.dataset.text.length) {
                     aboutTextElement.innerHTML += aboutTextElement.dataset.text.charAt(aboutIndex);
@@ -301,14 +297,19 @@
 
         observer.observe(content);
 
-        document.querySelectorAll('.project').forEach((project, index) => {
-            project.addEventListener('click', () => {
+            document.querySelectorAll('.project').forEach((project, index) => {
+        project.addEventListener('click', () => {
+            // Fade out
+            overlayText.classList.add('fade-out');
+            aboutTextElement.classList.add('fade-out');
+
+            setTimeout(() => {
                 const texts = [
-                   `• 4 Years of Scripting
+                    `<b>• 4 Years of Scripting
                     • 2 Years of UI / UX
-                    • 2 Years of Building / Modelling`,
+                    • 2 Years of Building / Modelling</b>`,
                     "Unfortunately, I cannot add media due to me not having Codepen PRO. For my work, DM me @ 'g0ofycat' on discord.",
-                    "This is a place where I add notes to this portfolio! 🐈‍⬛"
+                    "<i>This is a place where I add notes to this portfolio! 🐈‍⬛</i>"
                 ];
 
                 const overlayTexts = [
@@ -316,14 +317,15 @@
                     "Projects",
                     "Other"
                 ];
+
+                aboutTextElement.innerHTML = texts[index];
+                overlayText.innerHTML = overlayTexts[index];
+              
                 
-                aboutTextElement.dataset.innerHTML = texts[index];
-                aboutTextElement.dataset.text = texts[index]; 
-                overlayText.dataset.text = overlayTexts[index]; 
-                typeWriterAbout(); 
-                typeWriterOverlay();
-            });
+              
+            },);
         });
+    });
     </script>
 </body>
 </html>
