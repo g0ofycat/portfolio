@@ -322,22 +322,20 @@
             aboutTextElement.innerHTML = texts[index];
             overlayText.innerHTML = overlayTexts[index];
 
-            aboutTextElement.classList.remove('fade-out');
-            overlayText.classList.remove('fade-out');
-
-          
             setTimeout(() => {
+                aboutTextElement.classList.remove('fade-out');
+                overlayText.classList.remove('fade-out');
+
                 aboutTextElement.classList.add('fade-in');
                 overlayText.classList.add('fade-in');
             }, 200); 
 
-        }, 200); 
+        }, 400); 
 
-  
         setTimeout(() => {
             aboutTextElement.classList.remove('fade-in');
             overlayText.classList.remove('fade-in');
-        }, 800);
+        }, 200);
     });
 });
     </script>
