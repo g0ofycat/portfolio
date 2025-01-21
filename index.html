@@ -15,7 +15,6 @@
             overflow: auto;
             font-size: 1.2vw;
         }
-
         header {
           background: #111;
           color: #fff;
@@ -72,7 +71,7 @@
         }
         .project {
             margin: 2rem;
-            padding: 2vw;
+            padding: 2vw; 
             background: #fff;
             border-radius: 0.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -93,7 +92,7 @@
             padding: 10px;
             border-radius: 5px;
             text-align: center;
-            font-size: 3vw;
+            font-size: 3vw; 
             font-family: 'Fira Mono', monospace;
         }
         .overlay-paragraph {
@@ -109,7 +108,7 @@
           z-index: 1;
           border: 2px solid #000000;
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-          font-size: 1.2vw;
+          font-size: 1.2vw; 
         }
         @keyframes slideDown {
             from {
@@ -142,7 +141,8 @@
         I am good in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
         as my next programming language.  I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
         other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics</b>, 
-        and I am open to learn new subjects!</p>
+        and I am open to learn new subjects!
+    </p>
         <div class="project">
             <h2>Experience</h2>
             <p><i>Open <b>this</b> section</i></p>
@@ -150,10 +150,6 @@
         <div class="project">
             <h2>Projects</h2>
             <p><i>Open <b>this</b> section</i></p>
-            <!-- <video controls width="300">
-                <source src="2025-01-04_12-42-39.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video> -->
         </div>
         <div class="project">
             <h2>Other</h2>
@@ -240,8 +236,7 @@
 
         const text = "g0ofycat 🐈‍⬛";
         let index = 0;
-        const speed = 20;
-
+        const speed = 80;
         function typeWriter() {
             if (index < text.length) {
                 document.getElementById("typewriter").innerHTML += text.charAt(index);
@@ -269,8 +264,8 @@
         }
 
         function typeWriterAbout() {
-            aboutTextElement.innerHTML = "";
-            aboutIndex = 0;
+            aboutTextElement.innerHTML = ""; 
+            aboutIndex = 0; 
             function type() {
                 if (aboutIndex < aboutTextElement.dataset.text.length) {
                     aboutTextElement.innerHTML += aboutTextElement.dataset.text.charAt(aboutIndex);
@@ -301,29 +296,50 @@
 
         observer.observe(content);
 
-        document.querySelectorAll('.project').forEach((project, index) => {
-            project.addEventListener('click', () => {
-                const texts = [
-                   `• 4 Years of Scripting
-                    • 2 Years of UI / UX
-                    • 2 Years of Building / Modelling`,
-                    "Unfortunately, I cannot add media due to me not having Codepen [Pro]. For my work, DM me @ 'g0ofycat' on Discord.",
-                    "This is a place where I add notes to this portfolio! 🐈‍⬛"
-                ];
+                document.querySelectorAll('.project').forEach((project, index) => {
+    project.addEventListener('click', () => {
+        overlayText.classList.add('fade-out');
+        aboutTextElement.classList.add('fade-out');
 
-                const overlayTexts = [
-                    "Experience",
-                    "Projects",
-                    "Other"
-                ];
-                
-                aboutTextElement.dataset.innerHTML = texts[index];
-                aboutTextElement.dataset.text = texts[index]; 
-                overlayText.dataset.text = overlayTexts[index]; 
-                typeWriterAbout(); 
-                typeWriterOverlay();
-            });
-        });
+        setTimeout(() => {
+            const texts = [
+                `<i><b>• 4 Years of Scripting <br>
+                • 2 Years of UI / UX <br>
+                • 2 Years of Building / Modelling <br>
+                • 2 Years of Animating  <br>
+                • Experienced with almost all Basic Topics <br>
+                • Understanding with some Advanced Topics.</b></i>`,
+                "<i><b>• Platformer Systems <br>• FPS Systems <br>• Combat System <br> •Movement Systems <br></b> and much more! <br>(DM me on Discord for more information)</i>",
+                "<i>Age: <b>14</b> <br> Timezone: <b>EST (Eastern Standard Time)</b> <br> Discord: <b>g0ofycat</b> <br> Email: <b>g0ofycatbusiness@gmail.com</b></i>"
+            ];
+
+            const overlayTexts = [
+                "Experience",
+                "Projects",
+                "Other"
+            ];
+
+            aboutTextElement.innerHTML = texts[index];
+            overlayText.innerHTML = overlayTexts[index];
+
+            aboutTextElement.classList.remove('fade-out');
+            overlayText.classList.remove('fade-out');
+
+          
+            setTimeout(() => {
+                aboutTextElement.classList.add('fade-in');
+                overlayText.classList.add('fade-in');
+            }, 200); 
+
+        }, 200); 
+
+  
+        setTimeout(() => {
+            aboutTextElement.classList.remove('fade-in');
+            overlayText.classList.remove('fade-in');
+        }, 800);
+    });
+});
     </script>
 </body>
 </html>
