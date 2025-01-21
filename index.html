@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>g0ofycat</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -15,14 +16,14 @@
             font-size: 1.2vw;
         }
         header {
-            background: #111;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            border: 2px solid #1d1d1d;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+          background: #111;
+          color: #fff;
+          padding: 15px;
+          text-align: center;
+          position: relative;
+          z-index: 2;
+          border: 2px solid #1d1d1d;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 1);
         }
         .header-container {
             display: flex;
@@ -95,19 +96,19 @@
             font-family: 'Fira Mono', monospace;
         }
         .overlay-paragraph {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            animation: slideDown 0.5s forwards;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            z-index: 1;
-            border: 2px solid #000000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            font-size: 1.2vw; 
+          position: absolute;
+          top: 5%;
+          left: 50%;
+          transform: translate(-50%, 0);
+          animation: slideDown 0.5s forwards;
+          background: rgba(255, 255, 255, 0.8);
+          padding: 10px;
+          border-radius: 5px;
+          text-align: center;
+          z-index: 1;
+          border: 2px solid #000000;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          font-size: 1.2vw; 
         }
         @keyframes slideDown {
             from {
@@ -125,11 +126,6 @@
             height: 100%;
             z-index: 0;
         }
-        /* Additional CSS */
-        .new-class {
-            color: blue;
-            font-size: 20px;
-        }
     </style>
 </head>
 <body>
@@ -146,7 +142,7 @@
         as my next programming language.  I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
         other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics</b>, 
         and I am open to learn new subjects!
-        </p>
+    </p>
         <div class="project">
             <h2>Experience</h2>
             <p><i>Open <b>this</b> section</i></p>
@@ -300,48 +296,48 @@
 
         observer.observe(content);
 
-        document.querySelectorAll('.project').forEach((project, index) => {
-            project.addEventListener('click', () => {
-                overlayText.classList.add('fade-out');
-                aboutTextElement.classList.add('fade-out');
+                document.querySelectorAll('.project').forEach((project, index) => {
+    project.addEventListener('click', () => {
+        overlayText.classList.add('fade-out');
+        aboutTextElement.classList.add('fade-out');
 
-                setTimeout(() => {
-                    const texts = [
-                        `<i><b>• 4 Years of Scripting <br>
-                        • 2 Years of UI / UX <br>
-                        • 2 Years of Building / Modelling <br>
-                        • 2 Years of Animating  <br>
-                        • Experienced with almost all Basic Topics <br>
-                        • Understanding with some Advanced Topics.</b></i>`,
-                        "<i><b>• Platformer Systems <br>• FPS Systems <br>• Combat System <br> •Movement Systems <br></b> and much more! <br>(DM me on Discord for more information)</i>",
-                        "<i>Age: <b>14</b> <br> Timezone: <b>EST (Eastern Standard Time)</b> <br> Discord: <b>g0ofycat</b> <br> Email: <b>g0ofycatbusiness@gmail.com</b></i>"
-                    ];
+        setTimeout(() => {
+            const texts = [
+                `<i><b>• 4 Years of Scripting <br>
+                • 2 Years of UI / UX <br>
+                • 2 Years of Building / Modelling <br>
+                • 2 Years of Animating  <br>
+                • Experienced with almost all Basic Topics <br>
+                • Understanding with some Advanced Topics.</b></i>`,
+                "<i><b>• Platformer Systems <br>• FPS Systems <br>• Combat System <br> •Movement Systems <br></b> and much more! <br>(DM me on Discord for more information)</i>",
+                "<i>Age: <b>14</b> <br> Timezone: <b>EST (Eastern Standard Time)</b> <br> Discord: <b>g0ofycat</b> <br> Email: <b>g0ofycatbusiness@gmail.com</b></i>"
+            ];
 
-                    const overlayTexts = [
-                        "Experience",
-                        "Projects",
-                        "Other"
-                    ];
+            const overlayTexts = [
+                "Experience",
+                "Projects",
+                "Other"
+            ];
 
-                    aboutTextElement.innerHTML = texts[index];
-                    overlayText.innerHTML = overlayTexts[index];
+            aboutTextElement.innerHTML = texts[index];
+            overlayText.innerHTML = overlayTexts[index];
 
-                    setTimeout(() => {
-                        aboutTextElement.classList.remove('fade-out');
-                        overlayText.classList.remove('fade-out');
+            setTimeout(() => {
+                aboutTextElement.classList.remove('fade-out');
+                overlayText.classList.remove('fade-out');
 
-                        aboutTextElement.classList.add('fade-in');
-                        overlayText.classList.add('fade-in');
-                    }, 200); 
+                aboutTextElement.classList.add('fade-in');
+                overlayText.classList.add('fade-in');
+            }, 200); 
 
-                }, 400); 
+        }, 400); 
 
-                setTimeout(() => {
-                    aboutTextElement.classList.remove('fade-in');
-                    overlayText.classList.remove('fade-in');
-                }, 200);
-            });
-        });
+        setTimeout(() => {
+            aboutTextElement.classList.remove('fade-in');
+            overlayText.classList.remove('fade-in');
+        }, 200);
+    });
+});
     </script>
 </body>
 </html>
