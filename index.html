@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>g0ofycat</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,14 +16,14 @@
             font-size: 1.2vw;
         }
         header {
-          background: #111;
-          color: #fff;
-          padding: 15px;
-          text-align: center;
-          position: relative;
-          z-index: 2;
-          border: 2px solid #1d1d1d;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            background: #111;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border: 2px solid #1d1d1d;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
         }
         .header-container {
             display: flex;
@@ -96,19 +96,19 @@
             font-family: 'Fira Mono', monospace;
         }
         .overlay-paragraph {
-          position: absolute;
-          top: 5%;
-          left: 50%;
-          transform: translate(-50%, 0);
-          animation: slideDown 0.5s forwards;
-          background: rgba(255, 255, 255, 0.8);
-          padding: 10px;
-          border-radius: 5px;
-          text-align: center;
-          z-index: 1;
-          border: 2px solid #000000;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-          font-size: 1.2vw; 
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            animation: slideDown 0.5s forwards;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 1;
+            border: 2px solid #000000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 1.2vw; 
         }
         @keyframes slideDown {
             from {
@@ -126,6 +126,25 @@
             height: 100%;
             z-index: 0;
         }
+        .video-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+        }
+        .video-grid .video-container {
+            position: relative;
+            margin: 10px;
+            border: 2px solid #000; 
+            padding: 10px; 
+            border-radius: 10px; 
+            background: rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -142,18 +161,47 @@
         as my next programming language.  I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
         other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics</b>, 
         and I am open to learn new subjects!
-    </p>
+        </p>
         <div class="project">
             <h2>Experience</h2>
             <p><i>Open <b>this</b> section</i></p>
         </div>
         <div class="project">
-            <h2>Projects</h2>
+            <h2>About Me</h2>
             <p><i>Open <b>this</b> section</i></p>
         </div>
         <div class="project">
             <h2>Other</h2>
             <p><i>Open <b>this</b> section</i></p>
+        </div>
+    </div>
+    <div class="video-section">
+      <h2><i>Projects</i></h2>
+        <div class="video-grid">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video1" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 1 Description</i></b></div>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video2" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 2 Description</i></b></div>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video3" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 3 Description</i></b></div>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video4" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 4 Description</i></b></div>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video5" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 5 Description</i></b></div>
+            </div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/video6" frameborder="0" allowfullscreen></iframe>
+                <div class="video-text"><i><b>Video 6 Description</i></b></div>
+            </div>
         </div>
     </div>
     <script>
@@ -228,11 +276,18 @@
         function emitParticles() {
             particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
         }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+    
+        
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          canvas.style.top = `${scrollY}px`;
         });
+      
+        window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
 
         const text = "g0ofycat 🐈‍⬛";
         let index = 0;
@@ -282,7 +337,7 @@
             typeWriter();
         };
 
-        setInterval(emitParticles, 50);
+        setInterval(emitParticles, 25);
 
         const content = document.querySelector('.content');
         const observer = new IntersectionObserver((entries) => {
@@ -296,48 +351,57 @@
 
         observer.observe(content);
 
-                document.querySelectorAll('.project').forEach((project, index) => {
-    project.addEventListener('click', () => {
-        overlayText.classList.add('fade-out');
-        aboutTextElement.classList.add('fade-out');
+        document.querySelectorAll('.project').forEach((project, index) => {
+            project.addEventListener('click', () => {
+                overlayText.classList.add('fade-out');
+                aboutTextElement.classList.add('fade-out');
 
-        setTimeout(() => {
-            const texts = [
-                `<i><b>• 4 Years of Scripting <br>
-                • 2 Years of UI / UX <br>
-                • 2 Years of Building / Modelling <br>
-                • 2 Years of Animating  <br>
-                • Experienced with almost all Basic Topics <br>
-                • Understanding with some Advanced Topics.</b></i>`,
-                "<i><b>• Platformer Systems <br>• FPS Systems <br>• Combat System <br> •Movement Systems <br></b> and much more! <br>(DM me on Discord for more information)</i>",
-                "<i>Age: <b>14</b> <br> Timezone: <b>EST (Eastern Standard Time)</b> <br> Discord: <b>g0ofycat</b> <br> Email: <b>g0ofycatbusiness@gmail.com</b></i>"
-            ];
+                setTimeout(() => {
+                    const texts = [
+                        `<i><b>
+                        • 4 Years of Scripting <br>
+                        • 2 Years of UI / UX <br>
+                        • 2 Years of Building / Modelling <br>
+                        • 2 Years of Animating <br>
+                        • Experienced with almost all Basic Topics <br>
+                        • Understanding with some Advanced Topics.
+                        </b></i>`,
+                        `Hello, I'm <b>g0ofycat</b>! I am a programmer with <b>~4 years of experience</b>, primarily using <b>Luau</b> as my main programming language. 
+                        I am skilled in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
+                        as my next programming language. I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
+                        other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics</b>.`,
+                        `<i>Age: <b>14</b> <br> 
+                        Timezone: <b>EST (Eastern Standard Time)</b> <br> 
+                        Discord: <b>g0ofycat</b> <br> 
+                        Email: <b>g0ofycatbusiness@gmail.com</b> <br>
+                        Region: <b>USA</b></i>`
+                    ];
 
-            const overlayTexts = [
-                "Experience",
-                "Projects",
-                "Other"
-            ];
+                    const overlayTexts = [
+                        "Experience",
+                        "About Me",
+                        "Other"
+                    ];
 
-            aboutTextElement.innerHTML = texts[index];
-            overlayText.innerHTML = overlayTexts[index];
+                    aboutTextElement.innerHTML = texts[index];
+                    overlayText.innerHTML = overlayTexts[index];
 
-            setTimeout(() => {
-                aboutTextElement.classList.remove('fade-out');
-                overlayText.classList.remove('fade-out');
+                    setTimeout(() => {
+                        aboutTextElement.classList.remove('fade-out');
+                        overlayText.classList.remove('fade-out');
 
-                aboutTextElement.classList.add('fade-in');
-                overlayText.classList.add('fade-in');
-            }, 200); 
+                        aboutTextElement.classList.add('fade-in');
+                        overlayText.classList.add('fade-in');
+                    }, 200); 
 
-        }, 400); 
+                }, 400); 
 
-        setTimeout(() => {
-            aboutTextElement.classList.remove('fade-in');
-            overlayText.classList.remove('fade-in');
-        }, 200);
-    });
-});
+                setTimeout(() => {
+                    aboutTextElement.classList.remove('fade-in');
+                    overlayText.classList.remove('fade-in');
+                }, 200);
+            });
+        });
     </script>
 </body>
 </html>
