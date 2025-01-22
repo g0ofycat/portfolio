@@ -21,3 +21,20 @@ window.addEventListener("resize", resizeOps);
     opacity: 1;
     transition: opacity 0.2s ease-in;
 }
+
+.video-section {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.video-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.video-grid iframe {
+    width: 80vh;
+    height: 40vh;
+    margin: 0%;
+}
