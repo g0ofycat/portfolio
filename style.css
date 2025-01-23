@@ -38,3 +38,22 @@ window.addEventListener("resize", resizeOps);
     height: 40vh;
     margin: 0%;
 }
+
+.projects-title {
+    position: relative;
+    font-size: 2rem;
+    text-align: center;*/
+}
+
+.projects-title::before {
+    content: "";
+    display: block;
+    width: 30%; 
+    height: 2px; 
+    background-color: black;
+    position: absolute;
+    top: -7vh; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
