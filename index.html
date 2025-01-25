@@ -224,7 +224,7 @@
         </div>
     </div>
     <script>
-        const canvas = document.getElementById('particleCanvas');
+    const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -300,12 +300,6 @@
             particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
         }
     }
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        particles = particles.map(particle => new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-    });
     
         
         window.addEventListener('scroll', () => {
@@ -316,7 +310,7 @@
         window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-      });
+        });
 
 
         const text = "g0ofycat 🐈‍⬛";
