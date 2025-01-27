@@ -34,27 +34,26 @@ window.addEventListener("resize", resizeOps);
 }
 
 .video-grid iframe {
-    width: 70dvh;
-    height: 40dvh;
+    width: 40dvw;
+    height: 60dvh;
     margin: 0%;
 }
 
 .projects-title {
     position: relative;
-    font-size: 2rem;
+    font-size: 6dvh;
     text-align: center;
 }
 
 .projects-title::before {
     content: "";
     display: block;
-    width: 30%; 
-    height: 2px; 
+    width: 40dvw; 
+    height: 0.5dvh; 
     background-color: white;
     position: absolute;
     top: -7dvh; 
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);  
 }
