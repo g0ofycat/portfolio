@@ -7,8 +7,8 @@ resizeOps();
 window.addEventListener("resize", resizeOps);
 
 .modal {
-  width: 50vw;
-  height: 50vh;
+  width: 50dvw;
+  height: 50dvh;
   height: calc(var(--vh, 1vh) * 50);
 }
 
@@ -34,8 +34,8 @@ window.addEventListener("resize", resizeOps);
 }
 
 .video-grid iframe {
-    width: 80vh;
-    height: 40vh;
+    width: 80dvh;
+    height: 40dvh;
     margin: 0%;
 }
 
@@ -52,7 +52,7 @@ window.addEventListener("resize", resizeOps);
     height: 2px; 
     background-color: white;
     position: absolute;
-    top: -7vh; 
+    top: -7dvh; 
     left: 50%;
     transform: translateX(-50%);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
