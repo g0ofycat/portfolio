@@ -9,7 +9,7 @@ window.addEventListener("resize", resizeOps);
 .modal {
   width: 50dvw;
   height: 50dvh;
-  height: calc(var(--vh, 1vh) * 50);
+  height: calc(var(--vh, 1dvh) * 50);
 }
 
 .fade-out {
@@ -34,7 +34,7 @@ window.addEventListener("resize", resizeOps);
 }
 
 .video-grid iframe {
-    width: 80dvh;
+    width: 70dvh;
     height: 40dvh;
     margin: 0%;
 }
