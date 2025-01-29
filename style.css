@@ -35,7 +35,7 @@ window.addEventListener("resize", resizeOps);
 
 .video-grid iframe {
     width: 40dvw;
-    height: 60dvh;
+    height: 50dvh;
     margin: 0%;
 }
 
@@ -51,7 +51,7 @@ window.addEventListener("resize", resizeOps);
     width: 40dvw; 
     height: 0.5dvh; 
     background-color: white;
-    position: absolute;
+    position: relative;
     top: -7dvh; 
     left: 50%;
     transform: translateX(-50%);
