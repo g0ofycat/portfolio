@@ -1,8 +1,19 @@
-window.onscroll = function() {myFunction()};
+window.onscroll = function() {
+  requestAnimationFrame(myFunction);
+};
 
 function myFunction() {
-  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var winScroll = window.scrollY || document.documentElement.scrollTop;
   var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  var scrolled = (winScroll / height) * 100 + 2;
-  document.getElementById("myBar").style.width = scrolled + "%";
+
+  if (height === 0) return;
+
+  var scrolled = (winScroll / height) * 100;
+
+  scrolled = Math.min(Math.max(scrolled, 0), 100);
+
+  var progressBar = document.getElementById("myBar");
+  if (progressBar) {
+    progressBar.style.width = scrolled + "%";
+  }
 }
