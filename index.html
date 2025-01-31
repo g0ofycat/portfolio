@@ -7,7 +7,7 @@
     <title>g0ofycat</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
     <style>
-                  body {
+         body {
               font-family: "Inconsolata", Inconsolata, monospace;
               margin: 0;
               padding: 0;
@@ -118,8 +118,10 @@
               transform: translate(-50%, 0);
               animation: slideDown 0.5s forwards;
               background: rgba(30, 30, 30, 0.9);
-              padding: 5dvh;
+              padding: 3dvh;
               border-radius: 5px;
+              height: auto;
+              width: auto;
               text-align: center;
               z-index: 1;
               border: 2px solid #333;
@@ -204,13 +206,68 @@
               initial-value: 0deg;
               inherits: false;
           }
+          .header-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0 0px;
+              width: 100%;
+              position: relative;
+          }
+        .header-container-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .social-buttons {
+              display: flex;
+              gap: 10px;
+              position: absolute;
+              left: 80%;
+              transform: translateY(-60%);
+         }
+        .social-button {
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Fira Mono', monospace;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-button.github {
+            background-color: #333;
+        }
+
+        .social-button.youtube {
+            background-color: #333;
+        }
+
+        .social-button.discord {
+            background-color: #333;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
     <canvas id="particleCanvas"></canvas>
     <header>
+        <div class="header-container-title">
+            <h1 id="typewriter"></h1>
+        </div>
         <div class="header-container">
             <h1 id="typewriter"></h1>
+            <div class="social-buttons">
+                <a href="https://github.com/g0ofycat" target="_blank" class="social-button github">GitHub</a>
+                <a href="https://www.youtube.com/@g0ofycat_git" target="_blank" class="social-button youtube">YouTube</a>
+                <a href="https://discord.com/users/782012749693190176" target="_blank" class="social-button discord">Discord</a>
+            </div>
         </div>
     </header>
     <div class="content fade-in-scroll">
