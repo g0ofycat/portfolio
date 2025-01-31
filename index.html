@@ -7,85 +7,85 @@
     <title>g0ofycat</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: "Monserrat", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            overflow: auto;
-            font-size: clamp(14px, 1.5vw, 18px);
-            color: #e0e0e0;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        header {
-            background: #1e1e1e;
-            color: #fff;
-            padding: 4vh;
-            text-align: center;
-            position: sticky;
-            z-index: 100;
-            top: 0;
-            border: 2px solid #333;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        .header-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-        }
-        h1 {
-            margin: 0;
-            font-family: 'Fira Mono', monospace;
-            text-align: center;
-            color: #fff;
-            font-size: clamp(24px, 4vw, 36px);
-        }
-        .content {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            position: relative;
-            z-index: 2;
-            margin-top: 2rem;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        .fade-in-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        .fade-in-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 12px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        .project {
+                  body {
+              font-family: "Monserrat", sans-serif;
+              margin: 0;
+              padding: 0;
+              background-color: #121212;
+              overflow: auto;
+              font-size: clamp(14px, 1.5vw, 18px);
+              color: #e0e0e0;
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+          }
+          header {
+              background: #1e1e1e;
+              color: #fff;
+              padding: 4vh;
+              text-align: center;
+              position: sticky;
+              z-index: 100;
+              top: 0;
+              border: 2px solid #333;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+          }
+          .header-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0 20px;
+          }
+          h1 {
+              margin: 0;
+              font-family: 'Fira Mono', monospace;
+              text-align: center;
+              color: #fff;
+              font-size: clamp(24px, 4vw, 36px);
+          }
+          .content {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              position: relative;
+              z-index: 2;
+              margin-top: 2rem;
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+          }
+          .fade-in-scroll {
+              opacity: 0;
+              transform: translateY(20px);
+              transition: opacity 1s ease, transform 1s ease;
+          }
+          .fade-in-scroll.visible {
+              opacity: 1;
+              transform: translateY(0);
+          }
+          ::-webkit-scrollbar {
+              width: 8px;
+          }
+          ::-webkit-scrollbar-track {
+              background: transparent;
+          }
+          ::-webkit-scrollbar-thumb {
+              background: #333;
+              border-radius: 12px;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+              background: #555;
+          }
+          .project {
               position: relative;
               margin: 2rem;
-              padding: 2vw; 
+              padding: 2vw;
               background: #1e1e1e;
               color: #e0e0e0;
               border-radius: 0.5rem;
               box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-              transition: transform 0.3s, box-shadow 0.3s; /* Add box-shadow to the transition */
+              transition: transform 0.3s, box-shadow 0.3s;
               border: 2px solid #474747;
-              margin-top: 50vh; 
+              margin-top: 50vh;
               text-align: center;
               text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
               opacity: 1;
@@ -96,115 +96,114 @@
               transform: translateY(-20px);
               box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.1);
           }
-        .overlay-text {
-            position: absolute;
-            top: 2%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: clamp(18px, 3vw, 24px);
-            font-family: 'Fira Mono', monospace;
-            background: rgba(30, 30, 30, 0);
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        .overlay-paragraph {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            animation: slideDown 0.5s forwards;
-            background: rgba(30, 30, 30, 0.9);
-            padding: 5dvh;
-            border-radius: 5px;
-            text-align: center;
-            z-index: 1;
-            border: 2px solid #333;
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-            font-size: 1.2vw;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-        @keyframes slideDown {
-            from { transform: translate(-50%, -20px); }
-            to { transform: translate(-50%, 0); }
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        .video-section {
-            text-align: center;
-            margin: 2rem 0;
-            z-index: 10;
-        }
-        .video-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-        }
-        .video-grid .video-container {
-            position: relative;
-            margin: 5vh;
-            border: 2px solid #444;
-            padding: 2vh;
-            border-radius: 10px;
-            background: rgba(30, 30, 30, 0.8);
-            box-shadow: 0 2px 10px rgba(150, 150, 150, 0.4);
-            color: #e0e0e0;
-            z-index: 10;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-      
-        @property --angle{
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-        .video-grid .video-container {
-            position: relative;
-            margin: 5vh;
-            border: 2px solid #444;
-            padding: 2vh;
-            border-radius: 10px;
-            background: rgba(30, 30, 30, 0.8);*/
-            box-shadow: 0 2px 10px rgba(150, 150, 150, 0.4);
-            color: #e0e0e0;
-            z-index: 10; 
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            overflow: hidden;
-        }
-
-        .video-grid .video-container::after {
-            content: '';
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            background-image: conic-gradient(from var(--angle), transparent 90%, rgba(50, 50, 50));
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            border-radius: 10px;
-            animation: 6s spin linear infinite;
-        }
-        @keyframes spin {
-          from {
-            --angle: 0deg;
+          .overlay-text {
+              position: absolute;
+              top: 2%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 1;
+              padding: 10px;
+              border-radius: 5px;
+              text-align: center;
+              font-size: clamp(18px, 3vw, 24px);
+              font-family: 'Fira Mono', monospace;
+              background: rgba(30, 30, 30, 0);
+              color: #fff;
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
           }
-          to {
-            --angle: 360deg;
+          .overlay-paragraph {
+              position: absolute;
+              top: 10%;
+              left: 50%;
+              transform: translate(-50%, 0);
+              animation: slideDown 0.5s forwards;
+              background: rgba(30, 30, 30, 0.9);
+              padding: 5dvh;
+              border-radius: 5px;
+              text-align: center;
+              z-index: 1;
+              border: 2px solid #333;
+              box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+              font-size: clamp(14px, 1.5vw, 18px);
+              color: #fff;
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
           }
-        }
+          @keyframes slideDown {
+              from { transform: translate(-50%, -20px); }
+              to { transform: translate(-50%, 0); }
+          }
+          canvas {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              z-index: 0;
+          }
+          .video-section {
+              text-align: center;
+              margin: 2rem 0;
+              z-index: 10;
+          }
+          .video-grid {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              position: relative;
+              z-index: 10;
+          }
+          .video-grid .video-container {
+              position: relative;
+              margin: 5vh auto;
+              border: 2px solid #444;
+              padding: 2vh;
+              height: 55dvh;
+              width: 90%;
+              max-width: 40dvw;
+              border-radius: 10px;
+              background: rgba(30, 30, 30, 0.8);
+              box-shadow: 0 2px 10px rgba(150, 150, 150, 0.4);
+              color: #e0e0e0;
+              z-index: 10;
+              text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+              overflow: hidden;
+          }
+          .video-grid .video-container::after {
+              content: '';
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              background-image: conic-gradient(from var(--angle), transparent 90%, rgba(50, 50, 50));
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: -1;
+              border-radius: 10px;
+              animation: 6s spin linear infinite;
+          }
+          @keyframes spin {
+              from { --angle: 0deg; }
+              to { --angle: 360deg; }
+          }
+          @media (max-width: 768px) {
+              .video-grid .video-container {
+                  width: 95%;
+                  height: 60dvh;
+                  margin: 2vh auto;
+              }
+          }
+          @media (max-width: 480px) {
+              .video-grid .video-container {
+                  width: 100%;
+                  height: 70dvh;
+                  padding: 1vh;
+              }
+          }
+          @property --angle {
+              syntax: "<angle>";
+              initial-value: 0deg;
+              inherits: false;
+          }
     </style>
 </head>
 <body>
@@ -443,6 +442,8 @@
         });
           
               });
+
+
     </script>
 </body>
 </html>
