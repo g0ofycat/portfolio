@@ -8,7 +8,7 @@ function myFunction() {
 
   if (height === 0) return;
 
-  var scrolled = (winScroll / height) * 100;
+  var scrolled = (winScroll / height) * 100 + 2;
 
   scrolled = Math.min(Math.max(scrolled, 0), 100);
 
