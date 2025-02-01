@@ -7,8 +7,9 @@ resizeOps();
 window.addEventListener("resize", resizeOps);
 
 .modal {
-  width: calc(var(--vw, 1vw) * 50);
-  height: calc(var(--vh, 1vh) * 50);
+  width: 50dvw;
+  height: 50dvh;
+  height: calc(var(--vh, 1dvh) * 50);
 }
 
 .fade-out {
@@ -32,27 +33,21 @@ window.addEventListener("resize", resizeOps);
     justify-content: center;
 }
 
-.video-grid iframe {
-  width: calc(var(--vw, 1vw) * 40);
-  height: calc(var(--vh, 1vh) * 50);
-  margin: 0%;
-}
-
 .projects-title {
-  position: relative;
-  font-size: calc(var(--vh, 1vh) * 6);
-  text-align: center;
+    position: relative;
+    font-size: 6dvh;
+    text-align: center;
 }
 
 .projects-title::before {
-  content: "";
-  display: block;
-  width: calc(var(--vw, 1vw) * 40);
-  height: calc(var(--vh, 1vh) * 0.5);
-  background-color: white;
-  position: relative;
-  top: calc(var(--vh, 1vh) * -7); 
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    content: "";
+    display: block;
+    width: 40dvw; 
+    height: 0.5dvh; 
+    background-color: white;
+    position: relative;
+    top: -7dvh; 
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);  
 }
