@@ -98,7 +98,7 @@
           .project {
               position: relative;
               margin: 2rem;
-              padding: clamp(0.1rem, 2vw, 3rem);
+              padding: 2vw;
               background: #1e1e1e;
               color: #e0e0e0;
               flex-wrap: wrap;
@@ -114,6 +114,18 @@
               white-space: nowrap;
               transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease;
           }
+          @media (max-width: 768px) {
+              .project {
+                  padding: 0.7rem;
+              }
+          }
+
+          @media (min-width: 1200px) {
+              .project {
+                  padding: 2rem;
+              }
+          }
+      
           .project:hover {
               transform: translateY(-20px);
               box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 40px rgba(255, 255, 255, 0.1);
