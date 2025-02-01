@@ -149,20 +149,21 @@
               transform: translate(-50%, 0);
               animation: slideDown 0.5s forwards;
               background: rgba(30, 30, 30, 0.9);
-              padding: clamp(1dvh, 3dvh, 9dvh);
+              padding: clamp(0.5dvh, 1.5dvh, 6dvh);
               border-radius: 5px;
               height: auto;
-              width: clamp(40%, 60%, 80%); 
-              min-width: 300px; 
-              max-width: 90%;
+              width: clamp(30%, 50%, 70%);
+              min-width: 250px;
+              max-width: 80%;
               text-align: center;
               z-index: 1;
               border: 2px solid #333;
               box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-              font-size: clamp(14px, 1.5vw, 18px);
+              font-size: clamp(12px, 1.2vw, 16px);
               color: #fff;
               text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
           }
+
           @keyframes slideDown {
               from { transform: translate(-50%, -20px); }
               to { transform: translate(-50%, 0); }
@@ -321,7 +322,7 @@
                 align-items: flex-start;
                 justify-content: flex-end;
                 height: 100%;
-                padding-bottom: 5px;
+                padding-bottom: 2px;
             }
 
             .social-button {
