@@ -111,8 +111,12 @@
               opacity: 1;
               transform: translateY(10px);
               transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease;
-              flex-wrap: wrap;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: flex;
               justify-content: center;
+              align-items: center
           }
           @media (max-width: 768px) {
               .project {
