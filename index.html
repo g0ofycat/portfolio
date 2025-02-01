@@ -98,7 +98,7 @@
           .project {
               position: relative;
               margin: 2rem;
-              padding: 2vw;
+              padding: clamp(0.7vw, 2vw, 3vw);
               background: #1e1e1e;
               color: #e0e0e0;
               border-radius: 0.5rem;
@@ -110,11 +110,10 @@
               text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
               opacity: 1;
               transform: translateY(10px);
-              white-space: nowrap;
               transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease;
               flex-wrap: wrap;
               justify-content: center;
-          }    
+          }
           @media (max-width: 768px) {
               .project {
                   padding: 0.7rem;
