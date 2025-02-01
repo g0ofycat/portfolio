@@ -175,7 +175,6 @@
               position: relative;
               z-index: 10;
           }
-
           .video-grid .video-container {
               position: relative;
               margin: 5vh auto;
@@ -191,6 +190,14 @@
               z-index: 10;
               text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
               overflow: hidden;
+          }
+
+          .video-grid iframe {
+              width: 100%;
+              height: 90%;
+              aspect-ratio: 16 / 9;
+              border: none; 
+              margin: 0;
           }
           @media (max-width: 768px) {
               .video-grid {
@@ -244,7 +251,7 @@
           .header-container-title {
               position: absolute;
               left: 50%;
-              transform: translateX(-50%);*/
+              transform: translateX(-50%);
               text-align: center;
           }
           .header-container {
