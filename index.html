@@ -453,8 +453,8 @@
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                this.opacity -= 0.01;
-                this.life--;
+                this.life -= 0.5; 
+                this.opacity = Math.pow(this.life / 100, 1.5);
             }
             draw() {
                 ctx.fillStyle = `rgba(200, 200, 200, ${this.opacity})`;
