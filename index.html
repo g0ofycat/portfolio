@@ -438,7 +438,8 @@
         canvas.height = window.innerHeight;
 
         let particles = [];
-        const maxParticles = 200;
+        const maxParticles = 100;
+        const mouse = { x: null, y: null };
 
         class Particle {
             constructor(x, y) {
@@ -465,11 +466,19 @@
         }
 
         function init() {
-            const initialParticles = 0;
-            for (let i = 0; i < initialParticles; i++) {
+            for (let i = 0; i < maxParticles / 2; i++) {particles
                 particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
             }
         }
+        canvas.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -486,6 +495,7 @@
 
         function connectParticles() {
             const maxDistance = 150;
+
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -500,6 +510,20 @@
                         ctx.stroke();
                     }
                 }
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dxMouse = particles[i].x - mouse.x;
+                    const dyMouse = particles[i].y - mouse.y;
+                    const distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                    if (distanceMouse < maxDistance) {
+                        ctx.strokeStyle = `rgba(200, 200, 200, ${1 - distanceMouse / maxDistance})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
             }
         }
 
@@ -508,6 +532,7 @@
                 particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
             }
         }
+
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
