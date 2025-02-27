@@ -82,25 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
     project.addEventListener("click", () => {
       if (!overlayText || !aboutTextElement) return;
   
-      // Add the fade-out class to both elements
       overlayText.classList.add("fade-out");
       aboutTextElement.classList.add("fade-out");
   
       setTimeout(() => {
-        // Change content
         aboutTextElement.innerHTML = texts[index];
         overlayText.innerHTML = overlayTexts[index];
   
-        // Apply fade-in class after fade-out is complete
         aboutTextElement.classList.replace("fade-out", "fade-in");
         overlayText.classList.replace("fade-out", "fade-in");
   
         setTimeout(() => {
-          // Remove fade-in class after animation completes
           aboutTextElement.classList.remove("fade-in");
           overlayText.classList.remove("fade-in");
-        }, 400); // Match this timeout with the fade-in duration
-      }, 500); // Match this with fade-out duration
+        }, 400);
+      }, 500);
     });
   });
 
@@ -141,37 +137,35 @@ class Dot {
 
   reset(initial = false) {
     if (initial) {
-      // Initial spawn anywhere on the canvas.
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
       this.vx = (Math.random() - 0.5) * 0.3;
       this.vy = (Math.random() - 0.5) * 0.3;
     } else {
-      // Spawn from a random edge.
       const edge = Math.floor(Math.random() * 4);
       switch (edge) {
-        case 0: // Top edge
+        case 0:
           this.x = Math.random() * canvas.width;
           this.y = -spawnBuffer;
           this.vx = (Math.random() - 0.5) * 0.3;
-          this.vy = Math.random() * 0.2 + 0.1; // Move downward.
+          this.vy = Math.random() * 0.2 + 0.1;
           break;
-        case 1: // Right edge
+        case 1:
           this.x = canvas.width + spawnBuffer;
           this.y = Math.random() * canvas.height;
-          this.vx = -(Math.random() * 0.2 + 0.1); // Move leftward.
+          this.vx = -(Math.random() * 0.2 + 0.1);
           this.vy = (Math.random() - 0.5) * 0.3;
           break;
-        case 2: // Bottom edge
+        case 2: 
           this.x = Math.random() * canvas.width;
           this.y = canvas.height + spawnBuffer;
           this.vx = (Math.random() - 0.5) * 0.3;
-          this.vy = -(Math.random() * 0.2 + 0.1); // Move upward.
+          this.vy = -(Math.random() * 0.2 + 0.1); 
           break;
-        case 3: // Left edge
+        case 3:
           this.x = -spawnBuffer;
           this.y = Math.random() * canvas.height;
-          this.vx = Math.random() * 0.2 + 0.1; // Move rightward.
+          this.vx = Math.random() * 0.2 + 0.1;
           this.vy = (Math.random() - 0.5) * 0.3;
           break;
       }
