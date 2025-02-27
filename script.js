@@ -108,10 +108,11 @@ window.addEventListener("mousemove", (e) => {
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-let mouseX = 0,
-  mouseY = 0;
-let targetMouseX = 0,
-  targetMouseY = 0;
+
+let mouseX = window.innerWidth / 2,
+    mouseY = window.innerHeight / 2;
+let targetMouseX = mouseX,
+    targetMouseY = mouseY;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -126,21 +127,54 @@ canvas.addEventListener("mousemove", (e) => {
   targetMouseY = e.clientY;
 });
 
+// A constant buffer for spawning and out-of-bound checks.
+const spawnBuffer = 50;
+
 class Dot {
-  constructor() {
-    this.reset(true);
+  constructor(initial = false) {
+    this.reset(initial);
     this.opacity = Math.random() * 0.6 + 0.2;
     this.fadeSpeed = Math.random() * 0.02 + 0.01;
   }
 
   reset(initial = false) {
-    this.x = initial ? Math.random() * canvas.width : -50;
-    this.y = initial
-      ? Math.random() * canvas.height
-      : Math.random() * canvas.height;
+    if (initial) {
+      // Initial spawn anywhere on the canvas.
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+    } else {
+      // Spawn from a random edge.
+      const edge = Math.floor(Math.random() * 4);
+      switch (edge) {
+        case 0: // Top edge
+          this.x = Math.random() * canvas.width;
+          this.y = -spawnBuffer;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = Math.random() * 0.2 + 0.1; // Move downward.
+          break;
+        case 1: // Right edge
+          this.x = canvas.width + spawnBuffer;
+          this.y = Math.random() * canvas.height;
+          this.vx = -(Math.random() * 0.2 + 0.1); // Move leftward.
+          this.vy = (Math.random() - 0.5) * 0.3;
+          break;
+        case 2: // Bottom edge
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height + spawnBuffer;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = -(Math.random() * 0.2 + 0.1); // Move upward.
+          break;
+        case 3: // Left edge
+          this.x = -spawnBuffer;
+          this.y = Math.random() * canvas.height;
+          this.vx = Math.random() * 0.2 + 0.1; // Move rightward.
+          this.vy = (Math.random() - 0.5) * 0.3;
+          break;
+      }
+    }
     this.radius = Math.random() * 4 + 1;
-    this.vx = (Math.random() - 0.5) * 0.3;
-    this.vy = (Math.random() - 0.5) * 0.3;
   }
 
   update() {
@@ -152,23 +186,23 @@ class Dot {
       this.fadeSpeed *= -1;
     }
 
+    
     if (
-      this.x < -50 ||
-      this.x > canvas.width + 50 ||
-      this.y < -50 ||
-      this.y > canvas.height + 50
+      this.x < -spawnBuffer ||
+      this.x > canvas.width + spawnBuffer ||
+      this.y < -spawnBuffer ||
+      this.y > canvas.height + spawnBuffer
     ) {
-      this.reset();
+      this.reset(false);
     }
 
+   
     const dx = mouseX - this.x;
     const dy = mouseY - this.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
     const maxDistance = 200;
-
     if (distance < maxDistance) {
       const lineOpacity = (1 - distance / maxDistance) * this.opacity;
-
       ctx.beginPath();
       ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
       ctx.lineWidth = 0.5;
@@ -186,9 +220,7 @@ class Dot {
   }
 }
 
-const dots = Array(150)
-  .fill()
-  .map(() => new Dot());
+const dots = Array(150).fill().map(() => new Dot(true));
 
 function drawGradient() {
   const gradientRadius = 200;
@@ -200,10 +232,8 @@ function drawGradient() {
     mouseY,
     gradientRadius
   );
-
   gradient.addColorStop(0, "rgba(187, 187, 187, 0.15)");
   gradient.addColorStop(1, "rgba(187, 187, 187, 0)");
-
   ctx.fillStyle = gradient;
   ctx.beginPath();
   ctx.arc(mouseX, mouseY, gradientRadius, 0, Math.PI * 2);
@@ -225,8 +255,5 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
-
-targetMouseX = mouseX = window.innerWidth / 2;
-targetMouseY = mouseY = window.innerHeight / 2;
 
 animate();
