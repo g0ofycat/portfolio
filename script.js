@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
           aboutTextElement.classList.add("fade-in");
           overlayText.classList.add("fade-in");
         }, 200);
-      }, 400);
+      }, 500);
 
       setTimeout(() => {
         aboutTextElement.classList.remove("fade-in");
