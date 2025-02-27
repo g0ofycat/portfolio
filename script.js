@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Progress Bar Scroll Function
   function updateProgressBar() {
     const winScroll = window.scrollY || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -14,12 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Attach optimized scroll event listener
   window.addEventListener("scroll", () => {
     requestAnimationFrame(updateProgressBar);
   });
 
-  // Fade-in Scroll Effect
   const fadeElements = document.querySelectorAll(".fade-in-scroll");
 
   const observer = new IntersectionObserver(
@@ -36,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fadeElements.forEach((element) => observer.observe(element));
 
-  // Typewriter Effect
   const text = "g0ofycat 🐈‍⬛";
   let index = 0;
   const speed = 50;
@@ -54,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     typeWriter();
   }
 
-  // Overlay Text Change Logic
   const overlayText = document.getElementById("overlayText");
   const aboutTextElement = document.getElementById("aboutText");
 
@@ -76,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     Discord: <b>g0ofycat</b> <br> 
     Email: <b>g0ofycatbusiness@gmail.com</b> <br>
     Region: <b>USA</b></i><br>
-    (Do <b>NOT</b> DM me if you're trying to make a low-quality/cashgrab game)
     `
   ];
 
