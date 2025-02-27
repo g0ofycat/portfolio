@@ -169,14 +169,6 @@
               from { transform: translate(-50%, -20px); }
               to { transform: translate(-50%, 0); }
           }
-          canvas {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              z-index: 0;
-          }
           .video-section {
               text-align: center;
               margin: 2rem 0;
@@ -362,10 +354,19 @@
             width: 0%;
             box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
         }
+        
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
     </style>
 </head>
 <body>
-    <canvas id="particleCanvas"></canvas>
     <header>
         <div class="progress-container">
           <div class="progress-bar" id="myBar"></div>
@@ -406,8 +407,8 @@
     <h2 class="projects-title"><i>Projects</i></h2>
     <div class="video-grid">
         <div class="video-container fade-in-scroll">
-            <iframe src="https://youtube.com/embed/QEvzEiJWVwE" frameborder="0" allowfullscreen></iframe>
-            <div class="video-text"><i><b>Gun System: Rework</b></i></div>
+            <iframe src="https://youtube.com/embed/0ctguaMDVOo" frameborder="0" allowfullscreen></iframe>
+            <div class="video-text"><i><b>Gun System</b></i></div>
         </div>
         <div class="video-container fade-in-scroll">
             <iframe src="https://youtube.com/embed/0T8MndqerGY" frameborder="0" allowfullscreen></iframe>
@@ -434,88 +435,147 @@
     <script>
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let mouseX = 0, mouseY = 0;
+        let targetMouseX = window.innerWidth / 2;
+        let targetMouseY = window.innerHeight / 2;
 
-        let particles = [];
-        const maxParticles = 200;
+        // Set canvas dimensions
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
-                this.opacity = 1;
-                this.life = 100;
+        class Dot {
+            constructor() {
+                this.reset(true);
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.fadeSpeed = Math.random() * 0.02 + 0.01;
             }
-
+            
+            reset(initial = false) {
+                this.x = initial ? Math.random() * canvas.width : -50;
+                this.y = initial ? Math.random() * canvas.height : Math.random() * canvas.height;
+                this.radius = Math.random() * 4 + 1;
+                this.vx = (Math.random() - 0.5) * 0.3;
+                this.vy = (Math.random() - 0.5) * 0.3;
+            }
+            
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.life -= 0.5;
-                this.opacity = Math.pow(this.life / 100, 1.5);
+                this.x += this.vx;
+                this.y += this.vy;
+                this.opacity += this.fadeSpeed;
+                
+                if (this.opacity <= 0.2 || this.opacity >= 0.8) {
+                    this.fadeSpeed *= -1;
+                }
+                
+                // Boundary check with soft reset
+                if (this.x < -50 || this.x > canvas.width + 50 || 
+                    this.y < -50 || this.y > canvas.height + 50) {
+                    this.reset();
+                }
             }
-
+            
             draw() {
                 ctx.fillStyle = `rgba(200, 200, 200, ${this.opacity})`;
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        function init() {
-            particles = [];
-        }
+        // Create dots
+        const maxParticles = 200;
+        let dots = Array(maxParticles).fill().map(() => new Dot());
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles = particles.filter(particle => particle.opacity > 0 && particle.life > 0);
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        function connectParticles() {
+        // Connect dots with lines
+        function connectDots() {
             const maxDistance = 150;
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
+            
+            // Connect dots to each other
+            for (let i = 0; i < dots.length; i++) {
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dx = dots[i].x - dots[j].x;
+                    const dy = dots[i].y - dots[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
+                    
                     if (distance < maxDistance) {
-                        ctx.strokeStyle = `rgba(200, 200, 200, ${1 - distance / maxDistance})`;
-                        ctx.lineWidth = 1;
+                        const lineOpacity = (1 - distance / maxDistance) * Math.min(dots[i].opacity, dots[j].opacity);
                         ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(200, 200, 200, ${lineOpacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
                         ctx.stroke();
                     }
                 }
             }
+            
+            // Connect dots to mouse cursor
+            const cursorInfluenceRadius = 200;
+            dots.forEach(dot => {
+                const dx = mouseX - dot.x;
+                const dy = mouseY - dot.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < cursorInfluenceRadius) {
+                    const lineOpacity = (1 - distance / cursorInfluenceRadius) * dot.opacity;
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(200, 200, 200, ${lineOpacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(dot.x, dot.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.stroke();
+                }
+            });
+        }
+        
+        // Draw gradient around mouse
+        function drawMouseGradient() {
+            const gradientRadius = 200;
+            const gradient = ctx.createRadialGradient(
+                mouseX, mouseY, 0,
+                mouseX, mouseY, gradientRadius
+            );
+            
+            gradient.addColorStop(0, 'rgba(100, 150, 255, 0.1)');
+            gradient.addColorStop(1, 'rgba(100, 150, 255, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(mouseX, mouseY, gradientRadius, 0, Math.PI * 2);
+            ctx.fill();
         }
 
-        function emitParticles() {
-            if (particles.length < maxParticles) {
-                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-            }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Smooth mouse movement
+            mouseX += (targetMouseX - mouseX) * 0.1;
+            mouseY += (targetMouseY - mouseY) * 0.1;
+            
+            // Draw gradient first (behind the dots)
+            drawMouseGradient();
+            
+            // Update and draw dots
+            dots.forEach(dot => {
+                dot.update();
+                dot.draw();
+            });
+            
+            // Connect dots with lines
+            connectDots();
+            
+            requestAnimationFrame(animate);
         }
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            canvas.style.top = `${scrollY}px`;
-        });
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        
+        window.addEventListener('scroll', function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -539,7 +599,7 @@
 
         const text = "g0ofycat 🐈‍⬛";
         let index = 0;
-        const speed = 80;
+        const speed = 50;
         function typeWriter() {
             if (index < text.length) {
                 document.getElementById("typewriter").innerHTML += text.charAt(index);
@@ -547,71 +607,66 @@
                 setTimeout(typeWriter, speed);
             }
         }
-      
-        init();
-        animate();
+        
         typeWriter();
-        setInterval(emitParticles, 50);
         
         document.addEventListener('DOMContentLoaded', () => {
-    const overlayText = document.getElementById('overlayText');
-    const aboutTextElement = document.getElementById('aboutText');
+            const overlayText = document.getElementById('overlayText');
+            const aboutTextElement = document.getElementById('aboutText');
 
-    document.querySelectorAll('.project').forEach((project, index) => {
-        project.addEventListener('click', () => {
-            overlayText.classList.add('fade-out');
-            aboutTextElement.classList.add('fade-out');
+            document.querySelectorAll('.project').forEach((project, index) => {
+                project.addEventListener('click', () => {
+                    overlayText.classList.add('fade-out');
+                    aboutTextElement.classList.add('fade-out');
 
-            setTimeout(() => {
-                const texts = [
-                    `<i><b>
-                    • 4 Years of Scripting <br>
-                    • 2 Years of UI / UX <br>
-                    • 2 Years of Building / Modelling <br>
-                    • 2 Years of Animating <br>
-                    • Experienced with almost all Basic Topics <br>
-                    • Understanding with some Advanced Topics.
-                    </b></i>`,
-                    `Hello, I'm <b>g0ofycat</b>! I am a <b>Fullstack Developer</b> with <b>~4 years of experience</b>, primarily using <b>Luau</b> as my main programming language. 
-                    I am skilled in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
-                    as my next programming language. I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
-                    other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics.</b>`,
-                    `<i>Age: <b>14</b> <br> 
-                    Timezone: <b>EST (Eastern Standard Time)</b> <br> 
-                    Discord: <b>g0ofycat</b> <br> 
-                    Email: <b>g0ofycatbusiness@gmail.com</b> <br>
-                    Region: <b>USA</b></i>
-                    `
-                ];
+                    setTimeout(() => {
+                        const texts = [
+                            `<i><b>
+                            • 4 Years of Scripting <br>
+                            • 2 Years of UI / UX <br>
+                            • 2 Years of Building / Modelling <br>
+                            • 2 Years of Animating <br>
+                            • Experienced with almost all Basic Topics <br>
+                            • Understanding with some Advanced Topics.
+                            </b></i>`,
+                            `Hello, I'm <b>g0ofycat</b>! I am a <b>Fullstack Developer</b> with <b>~4 years of experience</b>, primarily using <b>Luau</b> as my main programming language. 
+                            I am skilled in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
+                            as my next programming language. I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
+                            other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics.</b>`,
+                            `<i>Age: <b>14</b> <br> 
+                            Timezone: <b>EST (Eastern Standard Time)</b> <br> 
+                            Discord: <b>g0ofycat</b> <br> 
+                            Email: <b>g0ofycatbusiness@gmail.com</b> <br>
+                            Region: <b>USA</b></i><br>
+                            (Do <b>NOT</b> DM me if you're trying to make a low quality/cashgrab game)
+                            `
+                        ];
 
-                const overlayTexts = [
-                    "Experience",
-                    "About Me",
-                    "Other"
-                ];
+                        const overlayTexts = [
+                            "Experience",
+                            "About Me",
+                            "Other"
+                        ];
 
-                aboutTextElement.innerHTML = texts[index];
-                overlayText.innerHTML = overlayTexts[index];
+                        aboutTextElement.innerHTML = texts[index];
+                        overlayText.innerHTML = overlayTexts[index];
 
-                setTimeout(() => {
-                    aboutTextElement.classList.remove('fade-out');
-                    overlayText.classList.remove('fade-out');
+                        setTimeout(() => {
+                            aboutTextElement.classList.remove('fade-out');
+                            overlayText.classList.remove('fade-out');
 
-                    aboutTextElement.classList.add('fade-in');
-                    overlayText.classList.add('fade-in');
-                }, 200);
-            }, 400);
-                
-                setTimeout(() => {
-                    aboutTextElement.classList.remove('fade-in');
-                    overlayText.classList.remove('fade-in');
-                }, 200);
+                            aboutTextElement.classList.add('fade-in');
+                            overlayText.classList.add('fade-in');
+                        }, 200);
+                    }, 400);
+                    
+                    setTimeout(() => {
+                        aboutTextElement.classList.remove('fade-in');
+                        overlayText.classList.remove('fade-in');
+                    }, 200);
+                });
             });
         });
-          
-              });
-
-
     </script>
 </body>
 </html>
