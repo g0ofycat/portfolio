@@ -15,10 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  window.addEventListener("scroll", () => {
-    requestAnimationFrame(updateProgressBar);
-  });
-
   const fadeElements = document.querySelectorAll(".fade-in-scroll");
 
   const observer = new IntersectionObserver(
@@ -99,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 500);
     });
   });
-});
 
 window.addEventListener("mousemove", (e) => {
   targetMouseX = e.clientX;
@@ -108,6 +103,7 @@ window.addEventListener("mousemove", (e) => {
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 
 let mouseX = window.innerWidth / 2,
     mouseY = window.innerHeight / 2;
@@ -126,8 +122,7 @@ canvas.addEventListener("mousemove", (e) => {
   targetMouseX = e.clientX;
   targetMouseY = e.clientY;
 });
-
-// A constant buffer for spawning and out-of-bound checks.
+2
 const spawnBuffer = 50;
 
 class Dot {
@@ -257,3 +252,4 @@ function animate() {
 }
 
 animate();
+});
