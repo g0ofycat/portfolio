@@ -92,7 +92,7 @@ header {
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid #474747;
+    border: 2px solid #3a3a3a;
     margin-top: 50vh;
     text-align: center;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
@@ -151,7 +151,7 @@ a:hover {
     max-width: 85%;
     text-align: center;
     z-index: 1;
-    border: 2px solid #333;
+    border: 2px solid #3a3a3a;
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
     font-size: clamp(13px, 1.3vw, 17px);
     color: #fff;
@@ -162,13 +162,11 @@ a:hover {
     to { transform: translate(-50%, 0); }
 }
 canvas {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
+    pointer-events: fill;
+  }
 .video-section {
     text-align: center;
     margin: 2rem 0;
@@ -297,7 +295,7 @@ canvas {
     width: clamp(30px, 8vw, 80px); 
     height: clamp(16px, 3vw, 40px);
     border-radius: 5px;
-    border: 2px solid #3b3a3a;
+    border: 2px solid #3a3a3a;
     text-decoration: none;
     color: #fff;
     font-family: "Inconsolata", serif;
