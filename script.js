@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   function updateProgressBar() {
     const winScroll = window.scrollY || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
     if (height === 0) return;
 
     const scrolled = Math.min(Math.max((winScroll / height) * 100, 0), 100);
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Discord: <b>g0ofycat</b> <br> 
     Email: <b>g0ofycatbusiness@gmail.com</b> <br>
     Region: <b>USA</b></i><br>
-    `
+    `,
   ];
 
   const overlayTexts = ["Experience", "About Me", "Other"];
@@ -98,3 +100,133 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+window.addEventListener("mousemove", (e) => {
+  targetMouseX = e.clientX;
+  targetMouseY = e.clientY;
+});
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let mouseX = 0,
+  mouseY = 0;
+let targetMouseX = 0,
+  targetMouseY = 0;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+canvas.addEventListener("mousemove", (e) => {
+  targetMouseX = e.clientX;
+  targetMouseY = e.clientY;
+});
+
+class Dot {
+  constructor() {
+    this.reset(true);
+    this.opacity = Math.random() * 0.6 + 0.2;
+    this.fadeSpeed = Math.random() * 0.02 + 0.01;
+  }
+
+  reset(initial = false) {
+    this.x = initial ? Math.random() * canvas.width : -50;
+    this.y = initial
+      ? Math.random() * canvas.height
+      : Math.random() * canvas.height;
+    this.radius = Math.random() * 4 + 1;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.opacity += this.fadeSpeed;
+
+    if (this.opacity <= 0.2 || this.opacity >= 0.8) {
+      this.fadeSpeed *= -1;
+    }
+
+    if (
+      this.x < -50 ||
+      this.x > canvas.width + 50 ||
+      this.y < -50 ||
+      this.y > canvas.height + 50
+    ) {
+      this.reset();
+    }
+
+    const dx = mouseX - this.x;
+    const dy = mouseY - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const maxDistance = 200;
+
+    if (distance < maxDistance) {
+      const lineOpacity = (1 - distance / maxDistance) * this.opacity;
+
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
+      ctx.lineWidth = 0.5;
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(mouseX, mouseY);
+      ctx.stroke();
+    }
+  }
+
+  draw() {
+    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+const dots = Array(150)
+  .fill()
+  .map(() => new Dot());
+
+function drawGradient() {
+  const gradientRadius = 200;
+  const gradient = ctx.createRadialGradient(
+    mouseX,
+    mouseY,
+    0,
+    mouseX,
+    mouseY,
+    gradientRadius
+  );
+
+  gradient.addColorStop(0, "rgba(187, 187, 187, 0.15)");
+  gradient.addColorStop(1, "rgba(187, 187, 187, 0)");
+
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(mouseX, mouseY, gradientRadius, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  mouseX += (targetMouseX - mouseX) * 0.1;
+  mouseY += (targetMouseY - mouseY) * 0.1;
+
+  drawGradient();
+
+  dots.forEach((dot) => {
+    dot.update();
+    dot.draw();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+targetMouseX = mouseX = window.innerWidth / 2;
+targetMouseY = mouseY = window.innerHeight / 2;
+
+animate();
