@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  window.addEventListener("scroll", () => {
+    requestAnimationFrame(updateProgressBar);
+  });
+
   const fadeElements = document.querySelectorAll(".fade-in-scroll");
 
   const observer = new IntersectionObserver(
@@ -77,22 +81,26 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".project").forEach((project, index) => {
     project.addEventListener("click", () => {
       if (!overlayText || !aboutTextElement) return;
-
+  
+      // Add the fade-out class to both elements
       overlayText.classList.add("fade-out");
       aboutTextElement.classList.add("fade-out");
-
+  
       setTimeout(() => {
+        // Change content
         aboutTextElement.innerHTML = texts[index];
         overlayText.innerHTML = overlayTexts[index];
-
+  
+        // Apply fade-in class after fade-out is complete
         aboutTextElement.classList.replace("fade-out", "fade-in");
         overlayText.classList.replace("fade-out", "fade-in");
-
+  
         setTimeout(() => {
+          // Remove fade-in class after animation completes
           aboutTextElement.classList.remove("fade-in");
           overlayText.classList.remove("fade-in");
-        }, 400);
-      }, 500);
+        }, 400); // Match this timeout with the fade-in duration
+      }, 500); // Match this with fade-out duration
     });
   });
 
@@ -103,7 +111,6 @@ window.addEventListener("mousemove", (e) => {
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 
 let mouseX = window.innerWidth / 2,
     mouseY = window.innerHeight / 2;
@@ -122,7 +129,7 @@ canvas.addEventListener("mousemove", (e) => {
   targetMouseX = e.clientX;
   targetMouseY = e.clientY;
 });
-2
+
 const spawnBuffer = 50;
 
 class Dot {
