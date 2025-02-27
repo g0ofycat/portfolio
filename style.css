@@ -97,7 +97,7 @@ header {
     position: relative;
     margin: 2rem;
     padding: clamp(0.9vw, 2vw, 3vw);
-    background: #1e1e1e;
+    background: rgba(30, 30, 30, 0.9);
     color: #e0e0e0;
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
@@ -123,7 +123,7 @@ header {
 
 .project:hover {
     transform: translateY(-20px);
-    box-shadow: 0 0 15px rgba(223, 223, 223, 0.1), 0 0 40px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(97, 97, 97, 0.1), 0 0 40px rgba(255, 255, 255, 0.1);
 }
 
 a:hover {
