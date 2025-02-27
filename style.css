@@ -13,13 +13,13 @@ body {
 }
 
 .fade-in {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .fade-out {
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
 }
 
 
@@ -31,6 +31,7 @@ h1 {
     color: #fff;
     font-size: clamp(24px, 4vw, 36px);
 }
+
 .content {
     display: flex;
     flex-direction: row;
@@ -42,31 +43,39 @@ h1 {
     margin-top: 2rem;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
+
 .fade-in-scroll {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1s ease, transform 1s ease;
 }
+
 .fade-in-scroll.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 12px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
 ::-webkit-scrollbar-corner {
-   background: transparent;
+    background: transparent;
 }
+
 header {
     background: #1e1e1e;
     color: #fff;
@@ -75,7 +84,7 @@ header {
     position: sticky;
     z-index: 100;
     top: 0;
-    border: 2px solid #333;
+    border: 2px solid #424141;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     min-height: 80px;
@@ -83,6 +92,7 @@ header {
     align-items: center;
     justify-content: center;
 }
+
 .project {
     position: relative;
     margin: 2rem;
@@ -98,10 +108,10 @@ header {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     opacity: 1;
     transform: translateY(10px);
-    transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease; 
+    transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease;
     white-space: nowrap;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: clamp(0.1rem, 1vw, 2rem);
 }
 
@@ -136,6 +146,7 @@ a:hover {
     color: #fff;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
+
 .overlay-paragraph {
     position: absolute;
     top: 10%;
@@ -155,23 +166,32 @@ a:hover {
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
     font-size: clamp(13px, 1.3vw, 17px);
     color: #fff;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
+
 @keyframes slideDown {
-    from { transform: translate(-50%, -20px); }
-    to { transform: translate(-50%, 0); }
+    from {
+        transform: translate(-50%, -20px);
+    }
+
+    to {
+        transform: translate(-50%, 0);
+    }
 }
+
 canvas {
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: fill;
-  }
+}
+
 .video-section {
     text-align: center;
     margin: 2rem 0;
     z-index: 10;
 }
+
 .video-grid {
     display: flex;
     flex-wrap: wrap;
@@ -179,6 +199,7 @@ canvas {
     position: relative;
     z-index: 10;
 }
+
 .video-grid .video-container {
     display: flex;
     flex-direction: column;
@@ -199,19 +220,22 @@ canvas {
     overflow: hidden;
     height: auto;
 }
+
 .video-text {
     margin-top: 10px;
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
 }
+
 .video-grid iframe {
     width: 100%;
     height: 100%;
     aspect-ratio: 16 / 9;
-    border: none; 
+    border: none;
     margin: 0;
 }
+
 @media (max-width: 768px) {
     .video-grid {
         display: grid;
@@ -225,6 +249,7 @@ canvas {
         margin: 0;
     }
 }
+
 .video-grid .video-container::after {
     content: '';
     position: absolute;
@@ -238,10 +263,17 @@ canvas {
     border-radius: 10px;
     animation: 6s spin linear infinite;
 }
+
 @keyframes spin {
-    from { --angle: 0deg; }
-    to { --angle: 360deg; }
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
 }
+
 @media (max-width: 768px) {
     .video-grid .video-container {
         width: 80%;
@@ -249,6 +281,7 @@ canvas {
         margin: 2vh auto;
     }
 }
+
 @media (max-width: 480px) {
     .video-grid .video-container {
         width: 80%;
@@ -256,28 +289,31 @@ canvas {
         padding: 1vh;
     }
 }
+
 @property --angle {
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
 }
+
 .header-container-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
 }
+
 .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0%;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  height: auto; 
-  position: relative;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0%;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    box-sizing: border-box;
 }
 
 .social-buttons {
@@ -289,10 +325,10 @@ canvas {
 }
 
 .social-button {
-    padding: clamp(0.4em, 1.5vw, 0.8em); 
+    padding: clamp(0.4em, 1.5vw, 0.8em);
     font-size: clamp(0.4rem, 1.5vw, 0.8em);
     text-align: center;
-    width: clamp(30px, 8vw, 80px); 
+    width: clamp(30px, 8vw, 80px);
     height: clamp(16px, 3vw, 40px);
     border-radius: 5px;
     border: 2px solid #3a3a3a;
@@ -304,7 +340,7 @@ canvas {
     margin-left: 0px;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     position: relative;
     overflow: hidden;
 }
@@ -352,47 +388,49 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  .social-buttons {
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-end;
-      height: 100%;
-      padding-bottom: 2px;
-  }
+    .social-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        height: 100%;
+        padding-bottom: 2px;
+    }
 
-  .social-button {
-      width: 100%;
-      margin-left: 0;
-  }
+    .social-button {
+        width: 100%;
+        margin-left: 0;
+    }
 }
+
 .social-button.github {
-  background-color: #333;
+    background-color: #333;
 }
 
 .social-button.youtube {
-  background-color: #333;
+    background-color: #333;
 }
 
 .social-button.discord {
-  background-color: #333;
+    background-color: #333;
 }
 
 .social-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 .progress-container {
-  width: 100%;
-  height: 1px;
-  background: #303030;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+    width: 100%;
+    height: 1px;
+    background: #303030;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .progress-bar {
-  height: 2px;
-  background: #c9c9c9;
-  width: 0%;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
+    height: 2px;
+    background: #c9c9c9;
+    width: 0%;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 1);
 }
