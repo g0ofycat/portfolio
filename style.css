@@ -12,18 +12,16 @@ body {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-header {
-    background: #1e1e1e;
-    color: #fff;
-    padding: 4vh;
-    text-align: center;
-    position: sticky;
-    z-index: 100;
-    top: 0;
-    border: 2px solid #333;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
 
 h1 {
     margin: 0;
