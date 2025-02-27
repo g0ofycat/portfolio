@@ -97,7 +97,7 @@ header {
     position: relative;
     margin: 2rem;
     padding: clamp(0.9vw, 2vw, 3vw);
-    background: rgba(30, 30, 30, 0.9);
+    background: rgba(30, 30, 30, 0.7);
     color: #e0e0e0;
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
