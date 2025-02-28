@@ -108,7 +108,7 @@ header {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     opacity: 1;
     transform: translateY(10px);
-    transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease;
+    transition: opacity 1s ease, transform 1s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -124,6 +124,7 @@ header {
 .project:hover {
     transform: translateY(-20px);
     box-shadow: 0 0 15px rgba(104, 104, 104, 0.1), 0 0 40px rgba(155, 155, 155, 0.1);
+    text-shadow: 0 0 10px rgba(247, 247, 247, 0.5);
 }
 
 a:hover {
@@ -167,43 +168,45 @@ a:hover {
     color: #fff;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     transition: box-shadow 0.3s ease, text-shadow 0.3s ease;
-  }
+}
 
-  @keyframes fadeIn {
+@keyframes fadeIn {
     from {
-      opacity: 0;
-      visibility: hidden;
+        opacity: 0;
+        visibility: hidden;
     }
+
     to {
-      opacity: 1;
-      visibility: visible;
+        opacity: 1;
+        visibility: visible;
     }
-  }
-  
-  @keyframes fadeOut {
+}
+
+@keyframes fadeOut {
     from {
-      opacity: 1;
-      visibility: visible;
+        opacity: 1;
+        visibility: visible;
     }
+
     to {
-      opacity: 0;
-      visibility: hidden;
+        opacity: 0;
+        visibility: hidden;
     }
-  }
-  
-  .fade-in {
+}
+
+.fade-in {
     animation: fadeIn 0.5s forwards;
-  }
-  
-  .fade-out {
+}
+
+.fade-out {
     animation: fadeOut 0.5s forwards;
-  }
-  
-  .overlay-paragraph:hover {
+}
+
+.overlay-paragraph:hover {
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2), 0 0 10px rgba(49, 49, 49, 0.1);
     text-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
-  }
-  
+}
+
 
 @keyframes slideDown {
     from {
@@ -255,6 +258,12 @@ canvas {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     overflow: hidden;
     height: auto;
+    transition: box-shadow 0.3s ease, transform 0.6s ease;
+}
+
+.video-grid .video-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 15px rgba(104, 104, 104, 0.1), 0 0 40px rgba(236, 236, 236, 0.1);
 }
 
 .video-text {
@@ -342,14 +351,14 @@ canvas {
 .projects-title::before {
     content: "";
     display: block;
-    width: 40dvw; 
-    height: 0.2dvh; 
+    width: 40dvw;
+    height: 0.2dvh;
     background-color: white;
     position: relative;
-    top: -4dvh; 
+    top: -4dvh;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);  
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .header-container {
