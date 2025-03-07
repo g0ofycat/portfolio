@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rect = el.getBoundingClientRect();
     return (
       rect.top <=
-      (window.innerHeight || document.documentElement.clientHeight) * 0.95
+      (window.innerHeight || document.documentElement.clientHeight) * 0.975
     );
   }
 
