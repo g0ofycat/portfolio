@@ -1,264 +1,188 @@
-document.addEventListener("DOMContentLoaded", () => {
-  function updateProgressBar() {
-    const winScroll = window.scrollY || document.documentElement.scrollTop;
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
+document.addEventListener("DOMContentLoaded", function () {
+  const fadeElements = document.querySelectorAll(".fade-in");
 
-    if (height === 0) return;
-
-    const scrolled = Math.min(Math.max((winScroll / height) * 100, 0), 100);
-    const progressBar = document.getElementById("myBar");
-
-    if (progressBar) {
-      progressBar.style.width = scrolled + "%";
-    }
+  function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top <=
+      (window.innerHeight || document.documentElement.clientHeight) * 0.95
+    );
   }
 
-  window.addEventListener("scroll", () => {
-    requestAnimationFrame(updateProgressBar);
-  });
+  function checkScroll() {
+    fadeElements.forEach((element) => {
+      if (isElementInViewport(element)) {
+        element.classList.add("visible");
+      }
+    });
+  }
 
-  const fadeElements = document.querySelectorAll(".fade-in-scroll");
+  setTimeout(checkScroll, 100);
+
+  window.addEventListener("scroll", checkScroll);
+
+  window.addEventListener("resize", checkScroll);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const elements = document.querySelectorAll(".card, .video-holder"); // Target both .card and .video-holder
+
+  elements.forEach((element) => {
+    let bounds;
+    let glow;
+
+    function updateBounds() {
+      bounds = element.getBoundingClientRect();
+      glow = element.querySelector(".glow");
+    }
+
+    window.addEventListener("scroll", updateBounds);
+    window.addEventListener("resize", updateBounds);
+
+    function rotateToMouse(e) {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const leftX = mouseX - bounds.x;
+      const topY = mouseY - bounds.y;
+      const center = {
+        x: leftX - bounds.width / 2,
+        y: topY - bounds.height / 2,
+      };
+      const distance = Math.sqrt(center.x ** 2 + center.y ** 2);
+
+      const rotationX = center.y / 100;
+      const rotationY = -center.x / 100;
+      const rotationZ = Math.log(distance) * 5;
+
+      element.style.transform = `scale3d(1.07, 1.07, 1.07) 
+              rotate3d(${rotationX}, ${rotationY}, 0, ${rotationZ}deg)`;
+      element.style.transition = "transform 0.2s ease-out";
+
+      if (glow) {
+        glow.style.backgroundImage = `radial-gradient(
+              circle at ${center.x * 2 + bounds.width / 2}px ${
+          center.y * 2 + bounds.height / 2
+        }px,
+              rgba(255, 255, 255, 0.3),
+              rgba(255, 255, 255, 0)
+          )`;
+        glow.style.transition = "background-image 0.2s ease-out";
+      }
+    }
+
+    function handleMouseMove(e) {
+      rotateToMouse(e);
+    }
+
+    element.addEventListener("mouseenter", () => {
+      updateBounds();
+      document.addEventListener("mousemove", handleMouseMove, {
+        passive: true,
+      });
+    });
+
+    element.addEventListener("mouseleave", () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      element.style.transform = "";
+      element.style.transition = "transform 1s ease-out";
+      if (glow) {
+        glow.style.backgroundImage = "";
+        glow.style.transition = "background-image 1s ease-out";
+      }
+    });
+
+    updateBounds();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  function createTypewriterEffect(
+    element,
+    text,
+    typingSpeed = 50,
+    delay = 700
+  ) {
+    element.textContent = "";
+
+    const cursor = document.createElement("span");
+    cursor.style.position = "relative";
+    cursor.style.display = "inline-block";
+    cursor.style.width = "2px";
+    cursor.style.height = "1em";
+    cursor.style.backgroundColor = "var(--primary)";
+    cursor.style.marginLeft = "2px";
+    cursor.style.verticalAlign = "middle";
+
+    element.appendChild(cursor);
+
+    let cursorVisible = true;
+    const blinkCursor = setInterval(() => {
+      cursor.style.opacity = cursorVisible ? "1" : "0";
+      cursorVisible = !cursorVisible;
+    }, 500);
+
+    let charIndex = 0;
+
+    const typedTextSpan = document.createElement("span");
+    element.insertBefore(typedTextSpan, cursor);
+
+    function typeCharacter() {
+      if (charIndex < text.length) {
+        typedTextSpan.textContent += text.charAt(charIndex);
+        charIndex++;
+
+        let progress = charIndex / text.length;
+        let easing = 0;
+
+        if (progress < 0.3) {
+          // Slow start
+          easing = 1 - Math.pow(1 - progress / 0.3, 3);
+          setTimeout(typeCharacter, typingSpeed * (2 - easing));
+        } else if (progress > 0.7) {
+          // Slow end
+          easing = Math.pow((progress - 0.7) / 0.3, 3);
+          setTimeout(typeCharacter, typingSpeed * (1 + easing));
+        } else {
+          // Fast middle
+          setTimeout(typeCharacter, typingSpeed * 0.5);
+        }
+      }
+    }
+
+    setTimeout(typeCharacter, delay);
+
+    window.addEventListener("beforeunload", () => {
+      clearInterval(blinkCursor);
+    });
+  }
+
+  const headerElement = document.querySelector(".typewriter h1");
+  const headerText = headerElement.textContent;
+  createTypewriterEffect(headerElement, headerText, 50);
+
+  const subtitleElement = document.querySelector(".typewriter p"); 
+  const subtitleText = subtitleElement.textContent;
+  createTypewriterEffect(subtitleElement, subtitleText, 25, 1750);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const videoHolders = document.querySelectorAll(".video-holder");
 
   const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
+      (entries) => {
+          entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add("fade-in");
+                  observer.unobserve(entry.target); 
+              }
+          });
+      },
+      {
+          threshold: 0.5,
+      }
   );
 
-  fadeElements.forEach((element) => observer.observe(element));
-
-  const text = "g0ofycat 🐈‍⬛";
-  let index = 0;
-  const speed = 50;
-  const typewriterElement = document.getElementById("typewriter");
-
-  function typeWriter() {
-    if (index < text.length) {
-      typewriterElement.innerHTML += text.charAt(index);
-      index++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  if (typewriterElement) {
-    typeWriter();
-  }
-
-  const overlayText = document.getElementById("overlayText");
-  const aboutTextElement = document.getElementById("aboutText");
-
-  const texts = [
-    `<i><b>
-      • 4 Years of Scripting <br>
-      • 2 Years of UI / UX <br>
-      • 2 Years of Building / Modeling <br>
-      • 2 Years of Animating <br>
-      • Experienced with almost all Basic Topics <br>
-      • Understanding with some Advanced Topics.
-    </b></i>`,
-    `Hello, I'm <b>g0ofycat</b>! I am a <b>Fullstack Developer</b> with <b>~4 years of experience</b>, primarily using <b>Luau</b> as my main programming language. 
-    I am skilled in <b>HTML</b>, <b>Python</b>, and <b>Luau</b>, and I am currently exploring <b>C++</b> or <b>C#</b> 
-    as my next programming language. I specialize in areas such as <b>Mechanics / Systems</b>, <b>UI/UX design</b>, and <b>many other projects</b>, among 
-    other fields. I have a solid understanding of <b>basic programming concepts</b> and <b>some advanced topics.</b>`,
-    `<i>Age: <b>14</b> <br> 
-    Timezone: <b>EST (Eastern Standard Time)</b> <br> 
-    Discord: <b>g0ofycat</b> <br> 
-    Email: <b>g0ofycatbusiness@gmail.com</b> <br>
-    Region: <b>USA</b></i><br>
-    `,
-  ];
-
-  const overlayTexts = ["Experience", "About Me", "Other"];
-
-  document.querySelectorAll(".project").forEach((project, index) => {
-    project.addEventListener("click", () => {
-      if (!overlayText || !aboutTextElement) return;
-
-      overlayText.classList.add("fade-out");
-      aboutTextElement.classList.add("fade-out");
-  
-      overlayText.addEventListener('animationend', function onFadeOut() {
-        aboutTextElement.innerHTML = texts[index];
-        overlayText.innerHTML = overlayTexts[index];
-  
-        overlayText.classList.remove("fade-out");
-        aboutTextElement.classList.remove("fade-out");
-  
-        aboutTextElement.classList.add("fade-in");
-        overlayText.classList.add("fade-in");
-  
-        overlayText.addEventListener('animationend', function onFadeIn() {
-          aboutTextElement.classList.remove("fade-in");
-          overlayText.classList.remove("fade-in");
-  
-          overlayText.removeEventListener('animationend', onFadeIn);
-          overlayText.removeEventListener('animationend', onFadeOut);
-        });
-        
-        overlayText.removeEventListener('animationend', onFadeOut);
-      });
-    });
+  videoHolders.forEach((videoHolder) => {
+      observer.observe(videoHolder);
   });
-
-  window.addEventListener("mousemove", (e) => {
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-  });
-
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-
-  let mouseX = window.innerWidth / 2,
-    mouseY = window.innerHeight / 2;
-  let targetMouseX = mouseX,
-    targetMouseY = mouseY;
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
-
-  canvas.addEventListener("mousemove", (e) => {
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-  });
-
-  const spawnBuffer = 50;
-
-  class Dot {
-    constructor(initial = false) {
-      this.reset(initial);
-      this.opacity = Math.random() * 0.6 + 0.2;
-      this.fadeSpeed = Math.random() * 0.02 + 0.01;
-    }
-
-    reset(initial = false) {
-      if (initial) {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-      } else {
-        const edge = Math.floor(Math.random() * 4);
-        switch (edge) {
-          case 0:
-            this.x = Math.random() * canvas.width;
-            this.y = -spawnBuffer;
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = Math.random() * 0.2 + 0.1;
-            break;
-          case 1:
-            this.x = canvas.width + spawnBuffer;
-            this.y = Math.random() * canvas.height;
-            this.vx = -(Math.random() * 0.2 + 0.1);
-            this.vy = (Math.random() - 0.5) * 0.3;
-            break;
-          case 2:
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height + spawnBuffer;
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = -(Math.random() * 0.2 + 0.1);
-            break;
-          case 3:
-            this.x = -spawnBuffer;
-            this.y = Math.random() * canvas.height;
-            this.vx = Math.random() * 0.2 + 0.1;
-            this.vy = (Math.random() - 0.5) * 0.3;
-            break;
-        }
-      }
-      this.radius = Math.random() * 4 + 1;
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.opacity += this.fadeSpeed;
-
-      if (this.opacity <= 0.2 || this.opacity >= 0.8) {
-        this.fadeSpeed *= -1;
-      }
-
-      if (
-        this.x < -spawnBuffer ||
-        this.x > canvas.width + spawnBuffer ||
-        this.y < -spawnBuffer ||
-        this.y > canvas.height + spawnBuffer
-      ) {
-        this.reset(false);
-      }
-
-      const dx = mouseX - this.x;
-      const dy = mouseY - this.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxDistance = 200;
-      if (distance < maxDistance) {
-        const lineOpacity = (1 - distance / maxDistance) * this.opacity;
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(255, 255, 255, ${lineOpacity})`;
-        ctx.lineWidth = 0.5;
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(mouseX, mouseY);
-        ctx.stroke();
-      }
-    }
-
-    draw() {
-      ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  const dots = Array(150)
-    .fill()
-    .map(() => new Dot(true));
-
-  function drawGradient() {
-    const gradientRadius = 200;
-    const gradient = ctx.createRadialGradient(
-      mouseX,
-      mouseY,
-      0,
-      mouseX,
-      mouseY,
-      gradientRadius
-    );
-    gradient.addColorStop(0, "rgba(187, 187, 187, 0.15)");
-    gradient.addColorStop(1, "rgba(187, 187, 187, 0)");
-    ctx.fillStyle = gradient;
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, gradientRadius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    mouseX += (targetMouseX - mouseX) * 0.1;
-    mouseY += (targetMouseY - mouseY) * 0.1;
-
-    drawGradient();
-
-    dots.forEach((dot) => {
-      dot.update();
-      dot.draw();
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
 });
