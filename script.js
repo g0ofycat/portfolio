@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const rect = el.getBoundingClientRect();
     return (
       rect.top <=
-      (window.innerHeight || document.documentElement.clientHeight) * 0.975
+      (window.innerHeight || document.documentElement.clientHeight) * 0.99
     );
   }
 
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const elements = document.querySelectorAll(".card, .video-holder"); // Target both .card and .video-holder
+  const elements = document.querySelectorAll(".card");
 
   elements.forEach((element) => {
     let bounds;
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
           setTimeout(typeCharacter, typingSpeed * (2 - easing));
         } else if (progress > 0.7) {
           // Slow end
-          easing = Math.pow((progress - 0.7) / 0.3, 3);
+          easing = Math.pow((progress - 0.7) / 0.15, 3);
           setTimeout(typeCharacter, typingSpeed * (1 + easing));
         } else {
           // Fast middle
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const headerText = headerElement.textContent;
   createTypewriterEffect(headerElement, headerText, 50);
 
-  const subtitleElement = document.querySelector(".typewriter p"); 
+  const subtitleElement = document.querySelector(".typewriter p");
   const subtitleText = subtitleElement.textContent;
   createTypewriterEffect(subtitleElement, subtitleText, 25, 1750);
 });
@@ -169,20 +169,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoHolders = document.querySelectorAll(".video-holder");
 
   const observer = new IntersectionObserver(
-      (entries) => {
-          entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add("fade-in");
-                  observer.unobserve(entry.target); 
-              }
-          });
-      },
-      {
-          threshold: 0.5,
-      }
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+    }
   );
 
   videoHolders.forEach((videoHolder) => {
-      observer.observe(videoHolder);
+    observer.observe(videoHolder);
   });
 });
