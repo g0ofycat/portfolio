@@ -405,16 +405,17 @@ main {
     flex-direction: column;
     opacity: 0;
     transform-style: preserve-3d; 
-    transform: rotateX(10deg);
+    transform: rotateX(10deg) translateY(-20px);
 }
 
 .video-holder:hover {
-    transform: rotateX(0deg);
+    transform: rotateX(0deg) translateY(0);
     box-shadow: 0 15px 20px rgba(255, 255, 255, 0.2);
 }
 
 .video-holder.fade-in {
     opacity: 1;
+    transform: rotateX(10deg) translateY(0);
 }
 
 .video-holder iframe {
