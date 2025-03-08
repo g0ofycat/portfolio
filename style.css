@@ -413,7 +413,7 @@ main {
 
 .video-holder.fade-in {
     opacity: 1;
-    transform: rotateX(10deg);
+    transform: rotateX(5deg);
 }
 
 .video-holder iframe {
