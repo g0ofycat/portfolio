@@ -405,7 +405,7 @@ main {
     flex-direction: column;
     opacity: 0;
     transform-style: preserve-3d; 
-    transform: rotateX(20deg);
+    transform: rotateX(10deg);
 }
 
 .video-holder:hover {
