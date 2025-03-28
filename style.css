@@ -413,7 +413,6 @@ main {
 
 .video-holder.fade-in {
     opacity: 1;
-    transform: rotateX(5deg);
 }
 
 .video-holder iframe {
@@ -440,6 +439,63 @@ main {
     color: var(--text-secondary);
     line-height: 1.6;
     font-weight: 300;
+}
+
+.button-containerStack {
+    max-width: 1000px;
+    margin: 20px auto;
+    overflow: hidden; 
+    position: relative;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+    );
+}
+
+.button-scroller {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+}
+
+.buttonStack {
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 50px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    text-align: center;
+    flex-shrink: 0; 
+    min-width: 120px;
+    box-sizing: border-box; 
+}
+
+.buttonStack:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 @media (max-width: 1024px) {
