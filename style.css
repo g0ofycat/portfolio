@@ -443,6 +443,7 @@ main {
 
 .button-containerStack {
     max-width: 1000px;
+    width: 80%; 
     margin: 20px auto;
     overflow: hidden; 
     position: relative;
