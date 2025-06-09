@@ -79,24 +79,6 @@ canvas {
     transform: translate(-50%, -50%) scale(1.2);
 }
 
-/* Pulsating animation */
-@keyframes glow-pulse {
-    0% {
-        opacity: 0.3;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-
-    50% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-
-    100% {
-        opacity: 0.3;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-}
-
 .glow-animate::before {
     animation: glow-pulse 3s infinite ease-in-out;
 }
@@ -549,6 +531,23 @@ main {
 
     100% {
         transform: translateX(-50%);
+    }
+}
+
+@keyframes glow-pulse {
+    0% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.9);
     }
 }
 
