@@ -332,7 +332,7 @@ main {
 .button {
     display: inline-block;
     padding: 0.75em 1.5em;
-    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-size: clamp(0.8rem, 2vw, 1rem);
     font-weight: 600;
     text-align: center;
     text-decoration: none;
@@ -342,6 +342,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    text-wrap: nowrap;
 }
 
 .button:after {
