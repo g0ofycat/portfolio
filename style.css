@@ -324,15 +324,15 @@ main {
     left: 30px;
     display: flex;
     gap: 15px;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     z-index: 10;
 }
 
 .button {
     display: inline-block;
-    padding: 0.75em 1.5em;
-    font-size: clamp(0.8rem, 2vw, 1rem);
+    padding: clamp(0.5em, 1.2vw, 0.75em) clamp(1em, 2.5vw, 1.8em);
+    font-size: clamp(0.7rem, 1.8vw, 1.1rem);
     font-weight: 600;
     text-align: center;
     text-decoration: none;
@@ -342,7 +342,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .button:after {
@@ -367,16 +367,18 @@ main {
 
 .primary,
 .secondary,
-.tertiary {
+.tertiary,
+.hire {
     background-color: #000000;
     color: white;
     border: 2px solid #ffffff;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .primary:hover,
 .secondary:hover,
-.tertiary:hover {
+.tertiary:hover,
+.hire:hover {
     transform: scale(1.1);
 }
 
@@ -393,6 +395,12 @@ main {
 .tertiary:hover {
     background-color: #141414;
     border-color: #ffffff;
+}
+
+.hire:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
 }
 
 .videos-container {
@@ -527,6 +535,12 @@ main {
     margin-bottom: 12px;
 }
 
+.copyright {
+    text-align: center;
+    color: #525252;
+    font-weight: 400;
+    
+}
 
 @keyframes scroll {
     0% {
