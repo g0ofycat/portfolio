@@ -19,7 +19,7 @@ const observer = new IntersectionObserver(
   },
   { threshold: [0, 0.25, 0.5, 0.75, 1] }
 );
-
+  
 fadeElements.forEach((el) => observer.observe(el));
 
 // ---------- MOUSE ROTATION ----------
@@ -34,32 +34,20 @@ cards.forEach((card) => {
 
   const rotateToMouse = (e) => {
     const { clientX: mouseX, clientY: mouseY } = e;
-    const centerX = mouseX - (bounds.x + bounds.width / 2);
-    const centerY = mouseY - (bounds.y + bounds.height / 2);
+    const centerX = mouseX - bounds.x - bounds.width / 2;
+    const centerY = mouseY - bounds.y - bounds.height / 2;
+    const distance = Math.sqrt(centerX ** 2 + centerY ** 2);
 
-    const xNorm = centerX / (bounds.width / 2);
-    const yNorm = centerY / (bounds.height / 2);
-
-    const maxRotate = 15;
-    const rotateX = yNorm * maxRotate;
-    const rotateY = -xNorm * maxRotate;
-
-    const distance = Math.sqrt(xNorm ** 2 + yNorm ** 2);
-    const depth = 1 + distance * 0.01;
-
-    card.style.transform = `
-    perspective(1000px)
-    scale3d(${depth}, ${depth}, ${depth})
-    rotateX(${rotateX}deg)
-    rotateY(${rotateY}deg)
-  `;
-    card.style.transition = "transform 0.15s ease-out";
+    card.style.transform = `scale3d(1.07, 1.07, 1.07) rotate3d(${
+      centerY / 100
+    }, ${-centerX / 100}, 0, ${Math.log(distance) * 5}deg)`;
+    card.style.transition = "transform 0.2s ease-out";
 
     if (glow) {
       glow.style.backgroundImage = `radial-gradient(circle at ${
-        mouseX - bounds.x
-      }px ${mouseY - bounds.y}px, rgba(255,255,255,0.3), rgba(255,255,255,0))`;
-      glow.style.transition = "background-image 0.15s ease-out";
+        centerX * 2 + bounds.width / 2
+      }px ${centerY * 2 + bounds.height / 2}px, rgba(255,255,255,0.3), rgba(255,255,255,0))`;
+      glow.style.transition = "background-image 0.2s ease-out";
     }
   };
 
@@ -113,12 +101,5 @@ function createTypewriterEffect(element, text, typingSpeed = 50, delay = 700) {
   window.addEventListener("beforeunload", () => clearInterval(blinkCursor));
 }
 
-if (headerElement)
-  createTypewriterEffect(headerElement, headerElement.textContent, 50);
-if (subtitleElement)
-  createTypewriterEffect(
-    subtitleElement,
-    subtitleElement.textContent,
-    25,
-    1750
-  );
+if (headerElement) createTypewriterEffect(headerElement, headerElement.textContent, 50);
+if (subtitleElement) createTypewriterEffect(subtitleElement, subtitleElement.textContent, 25, 1750);
