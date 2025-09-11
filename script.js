@@ -2,6 +2,16 @@ const fadeElements = document.querySelectorAll(".fade-in");
 const cards = document.querySelectorAll(".card");
 const headerElement = document.querySelector(".typewriter h1");
 const subtitleElement = document.querySelector(".typewriter p");
+const buttonScroller = document.querySelector(".button-scroller");
+
+// ---------- SCROLLER HANDLER ----------
+
+if (buttonScroller) {
+  const buttons = [...buttonScroller.children];
+  buttons.forEach((btn) => {
+    buttonScroller.appendChild(btn.cloneNode(true));
+  });
+}
 
 // ---------- FADE IN ----------
 
@@ -10,19 +20,30 @@ document.body.classList.add("fade-in-loaded");
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.intersectionRatio > 0) {
+      if (entry.intersectionRatio > 0.1) { 
         entry.target.classList.add("visible");
       } else {
         entry.target.classList.remove("visible");
       }
     });
   },
-  { threshold: [0, 0.25, 0.5, 0.75, 1] }
+  { threshold: 0.1 }
 );
   
 fadeElements.forEach((el) => observer.observe(el));
 
 // ---------- MOUSE ROTATION ----------
+
+function throttle(fn, limit) {
+  let lastCall = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastCall >= limit) {
+      lastCall = now;
+      fn(...args);
+    }
+  };
+}
 
 cards.forEach((card) => {
   const glow = card.querySelector(".glow");
@@ -51,13 +72,15 @@ cards.forEach((card) => {
     }
   };
 
+  const throttledRotate = throttle(rotateToMouse, 16);
+
   card.addEventListener("mouseenter", () => {
     updateBounds();
-    document.addEventListener("mousemove", rotateToMouse, { passive: true });
+    document.addEventListener("mousemove", throttledRotate, { passive: true });
   });
 
   card.addEventListener("mouseleave", () => {
-    document.removeEventListener("mousemove", rotateToMouse);
+    document.removeEventListener("mousemove", throttledRotate);
     card.style.transform = "";
     card.style.transition = "transform 1s ease-out";
 
@@ -94,6 +117,9 @@ function createTypewriterEffect(element, text, typingSpeed = 50, delay = 700) {
     if (charIndex < text.length) {
       typedTextSpan.textContent += text.charAt(charIndex++);
       setTimeout(typeCharacter, typingSpeed);
+    } else {
+      clearInterval(blinkCursor);
+      cursor.remove();
     }
   };
 
